@@ -18,3 +18,5 @@ Upload the link to this public repository to the class assignment. This is requi
 Post the link to the repository in the PAI forum before the presentation date of the work, so that all students have access to the material in the exposition session.
 
 Remove from the repository those directories that are not necessary for your work.
+
+hola
