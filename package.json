@@ -1,0 +1,27 @@
+{
+  "name": "three-examples",
+  "version": "1.0.0",
+  "description": "Code examples of Three.js",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node web-server/app.js",
+    "push": "rm *~; git pull; git add . ; git commit -m 'Code improvement'; git push",
+    "pull": "git pull",
+    "doc": "typedoc",
+    "web": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "lil-gui": "^0.18.1",
+    "three": "^0.140.2",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@types/dat.gui": "^0.7.9",
+    "@types/three": "^0.150.1",
+    "dat.gui": "^0.7.9"
+  }
+}
