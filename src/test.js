@@ -32,6 +32,10 @@ function main() {
     const torusKnotGeometry = new THREE.TorusKnotGeometry(torusKnotRadius, torusKnotTubeRadius, torusKnotRadialSegments, torusKnotTubularSegments, torusKnotPValue, torusKnotQValue);
     const torusKnotMaterial = new THREE.MeshPhongMaterial({ color: 0x42aa88 });
     const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
+    const sphereRadius = 7;
+    const sphereWidthSegments = 21;
+    const sphereHeightSegments = 18;
+    const sphereGeometry = new THREE.SphereGeometry(sphereRadius, sphereWidthSegments, sphereHeightSegments);
     torusKnot.position.set(2, 2, 2);
     scene.add(cube);
     scene.add(torusKnot);
