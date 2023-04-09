@@ -14,7 +14,7 @@ function main() {
   camera.position.z = 35;
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0xAAAAAA);
-  {
+  { // Se usan los { } para evitar conflictos de nombres con variables
     const color = 0xFFFFFF;
     const intensity = 1;
     const light = new THREE.DirectionalLight(color, intensity);
@@ -45,7 +45,7 @@ function main() {
     const hue = Math.random();
     const saturation = 1;
     const luminance = .5;
-    material.color.setHSL(hue, saturation, luminance);
+    material.color.setHSL(hue, saturation, luminance); // setHSL = setHueSaturationLuminance
 
     return material;
   }
@@ -95,8 +95,9 @@ function main() {
     addSolidGeometry(1, -0.5, new THREE.TorusKnotGeometry(radius, tube, tubularSegments, radialSegments, p, q));
   }
   function render(time) {
-    time *= 0.001;  // convert time to seconds
+    time *= 0.001;  // Convertir tiempo a segundos
 
+    // Hacemos que los objetos giren
     objects.forEach((obj, ndx) => {
       const speed = .1 + ndx * .05;
       const rot = time * speed;

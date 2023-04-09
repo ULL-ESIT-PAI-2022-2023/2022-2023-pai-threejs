@@ -1,16 +1,19 @@
 import * as THREE from 'three';
+
+'use strict'
+
 function main() {
-    const canvas = document.querySelector('#canvasBase');
-    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
-    const fov = 60;
+    const canvas = document.querySelector('#canvasBase'); // another way of getting the canvas
+    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas }); // renderer
+    const fov = 60; // field of view: when the number gets bigger, more scene is visible
     const aspect = 2; // the canvas default
-    const near = 0.1;
-    const far = 1000;
+    const near = 0.1; // minimum distance required for objects to be rendered
+    const far = 1000; // maximum distance required for objects to be rendered
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
     camera.position.z = 35;
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xAAAAAA);
-    {
+    { // { } are used to avoid variable name conflicts
         const color = 0xFFFFFF;
         const intensity = 1;
         const light = new THREE.DirectionalLight(color, intensity);
@@ -25,7 +28,7 @@ function main() {
         scene.add(light);
     }
     const objects = [];
-    const spread = 15;
+    const spread = 15; // distance between objects
     function addObject(x, y, obj) {
         obj.position.x = x * spread;
         obj.position.y = y * spread;
@@ -39,7 +42,7 @@ function main() {
         const hue = Math.random();
         const saturation = 1;
         const luminance = .5;
-        material.color.setHSL(hue, saturation, luminance);
+        material.color.setHSL(hue, saturation, luminance); // setHSL = setHueSaturationLuminance
         return material;
     }
     function addSolidGeometry(x, y, geometry) {
@@ -86,8 +89,10 @@ function main() {
         const q = 3;
         addSolidGeometry(1, -0.5, new THREE.TorusKnotGeometry(radius, tube, tubularSegments, radialSegments, p, q));
     }
+
     function render(time) {
-        time *= 0.001; // convert time to seconds
+        time *= 0.001; // Time to seconds
+        // Make objects rotate
         objects.forEach((obj, ndx) => {
             const speed = .1 + ndx * .05;
             const rot = time * speed;
