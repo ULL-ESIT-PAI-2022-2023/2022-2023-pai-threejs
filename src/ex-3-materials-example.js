@@ -4,8 +4,8 @@
  * Grado en Ingeniería Informática
  * Programación de Aplicaciones Interactivas
  *
- * @author Edwin Plasencia Hernández & Gerard Antony Caramazza Vilá
- * @since May 15 2022
+ * @author Francisco Marqués Armas y Julio Carrasco
+ * @since Apr 4 2023
  * @desc Basic materials with three.js
  */
 import * as THREE from '../node_modules/three/build/three.module.js';
@@ -35,7 +35,7 @@ function main() {
         shininess: 50
     });
     const basicPhongSphere = new THREE.Mesh(basicPhongSphereGeometry, basicPhongSphereMaterial);
-    basicPhongSphere.position.set(0, 1, 0);
+    basicPhongSphere.position.set(1, 1, 1); // 2, 1, 0
     scene.add(basicPhongSphere);
     // Phong sphere very shiny
     const shinyPhongSphereGeometry = new THREE.SphereGeometry(0.5);
@@ -44,7 +44,7 @@ function main() {
         shininess: 100
     });
     const shinyPhongSphere = new THREE.Mesh(shinyPhongSphereGeometry, shinyPhongSphereMaterial);
-    shinyPhongSphere.position.set(1, 1, -1);
+    shinyPhongSphere.position.set(2, 1, 0); // 0, 1, 2
     scene.add(shinyPhongSphere);
     // Phong sphere opaque
     const opaquePhongSphereGeometry = new THREE.SphereGeometry(0.5);
@@ -53,7 +53,7 @@ function main() {
         shininess: 0
     });
     const opaquePhongSphere = new THREE.Mesh(opaquePhongSphereGeometry, opaquePhongSphereMaterial);
-    opaquePhongSphere.position.set(-1, 1, 1);
+    opaquePhongSphere.position.set(0, 1, 2); // 1, 1, 1
     scene.add(opaquePhongSphere);
     // Standard metallic sphere
     const metallicSphereGeometry = new THREE.SphereGeometry(0.5);
@@ -63,7 +63,7 @@ function main() {
         roughness: 0
     });
     const metallicSphere = new THREE.Mesh(metallicSphereGeometry, metallicSphereMaterial);
-    metallicSphere.position.set(2, 1, 0);
+    metallicSphere.position.set(1, 1, -1); // 0, 1, 0
     scene.add(metallicSphere);
     // Standard rough sphere
     const roughSphereGeometry = new THREE.SphereGeometry(0.5);
@@ -73,7 +73,7 @@ function main() {
         roughness: 1
     });
     const roughSphere = new THREE.Mesh(roughSphereGeometry, roughSphereMaterial);
-    roughSphere.position.set(-0, 1, 2);
+    roughSphere.position.set(-1, 1, 1); // 1, 1, -1
     scene.add(roughSphere);
     // Standard mixed sphere
     const mediumSphereGeometry = new THREE.SphereGeometry(0.5);
@@ -83,7 +83,7 @@ function main() {
         roughness: 0.5
     });
     const mediumSphere = new THREE.Mesh(mediumSphereGeometry, mediumSphereMaterial);
-    mediumSphere.position.set(1, 1, 1);
+    mediumSphere.position.set(0, 1, 0); // -1, 1, 1
     scene.add(mediumSphere);
 
     // Basic material sphere
