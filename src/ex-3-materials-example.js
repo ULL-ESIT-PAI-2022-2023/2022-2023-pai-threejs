@@ -4,7 +4,7 @@
  * Grado en Ingeniería Informática
  * Programación de Aplicaciones Interactivas
  *
- * @author Francisco Marqués Armas y Julio Carrasco
+ * @author Francisco Marqués Armas y Julio Carrasco Armas
  * @since Apr 4 2023
  * @desc Basic materials with three.js
  */
@@ -19,133 +19,133 @@ function main() {
         canvas: canvas,
         alpha: true // The canvas will accept transparency
     });
-    const fov = 70; // Camera's field of view
-    const aspect = 2; // canvas default
-    const near = 0.1; // Nearest point that will be rendered from the camera
-    const far = 100; // Farthest point that will be rendered from the camera
-    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+    const FOV = 70; // Camera's field of view
+    const ASPECT_RATIO = 2; // canvas default
+    const NEAR = 0.1; // Nearest point that will be rendered from the camera
+    const FAR = 100; // Farthest point that will be rendered from the camera
+    const camera = new THREE.PerspectiveCamera(FOV, ASPECT_RATIO, NEAR, FAR);
     camera.position.set(4, 6, 4); // We move to camera to x=2 y=4 z=2
     camera.lookAt(0, 0, 0); // We point the camera to the origin coordinates
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color('green'); // Green background
+    const SCENE = new THREE.Scene();
+    SCENE.background = new THREE.Color('green'); // Green background
     // Phong sphere normal lighting
-    const basicPhongSphereGeometry = new THREE.SphereGeometry(0.5);
-    const basicPhongSphereMaterial = new THREE.MeshPhongMaterial({ // Allows for some shine
+    const BASIC_PHONG_GEOMETRY = new THREE.SphereGeometry(0.5);
+    const BASIC_PHONG_MATERIAL = new THREE.MeshPhongMaterial({ // Allows for some shine
         color: 'red',
         shininess: 50
     });
-    const basicPhongSphere = new THREE.Mesh(basicPhongSphereGeometry, basicPhongSphereMaterial);
-    basicPhongSphere.position.set(1, 1, 1); // 2, 1, 0
-    scene.add(basicPhongSphere);
+    const BASIC_PHONG_SPHERE = new THREE.Mesh(BASIC_PHONG_GEOMETRY, BASIC_PHONG_MATERIAL);
+    BASIC_PHONG_SPHERE.position.set(1, 1, 1); 
+    SCENE.add(BASIC_PHONG_SPHERE);
     // Phong sphere very shiny
-    const shinyPhongSphereGeometry = new THREE.SphereGeometry(0.5);
-    const shinyPhongSphereMaterial = new THREE.MeshPhongMaterial({
+    const SHINY_PHONG_GEOMETRY = new THREE.SphereGeometry(0.5);
+    const SHINY_PHONG_MATERIAL = new THREE.MeshPhongMaterial({
         color: 'red',
         shininess: 100
     });
-    const shinyPhongSphere = new THREE.Mesh(shinyPhongSphereGeometry, shinyPhongSphereMaterial);
-    shinyPhongSphere.position.set(2, 1, 0); // 0, 1, 2
-    scene.add(shinyPhongSphere);
+    const SHINY_PHONG_SPHERE = new THREE.Mesh(SHINY_PHONG_GEOMETRY, SHINY_PHONG_MATERIAL);
+    SHINY_PHONG_SPHERE.position.set(2, 1, 0); 
+    SCENE.add(SHINY_PHONG_SPHERE);
     // Phong sphere opaque
-    const opaquePhongSphereGeometry = new THREE.SphereGeometry(0.5);
-    const opaquePhongSphereMaterial = new THREE.MeshPhongMaterial({
+    const OPAQUE_PHONG_GEOMETRY = new THREE.SphereGeometry(0.5);
+    const OPAQUE_PHONG_MATERIAL = new THREE.MeshPhongMaterial({
         color: 'red',
         shininess: 0
     });
-    const opaquePhongSphere = new THREE.Mesh(opaquePhongSphereGeometry, opaquePhongSphereMaterial);
-    opaquePhongSphere.position.set(0, 1, 2); // 1, 1, 1
-    scene.add(opaquePhongSphere);
+    const OPAQUE_PHONG_SPHERE = new THREE.Mesh(OPAQUE_PHONG_GEOMETRY, OPAQUE_PHONG_MATERIAL);
+    OPAQUE_PHONG_SPHERE.position.set(0, 1, 2); 
+    SCENE.add(OPAQUE_PHONG_SPHERE);
     // Standard metallic sphere
-    const metallicSphereGeometry = new THREE.SphereGeometry(0.5);
-    const metallicSphereMaterial = new THREE.MeshStandardMaterial({
+    const METALLIC_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
+    const METALLIC_SPHERE_MATERIAL = new THREE.MeshStandardMaterial({
         color: 'blue',
         metalness: 1,
         roughness: 0
     });
-    const metallicSphere = new THREE.Mesh(metallicSphereGeometry, metallicSphereMaterial);
-    metallicSphere.position.set(1, 1, -1); // 0, 1, 0
-    scene.add(metallicSphere);
+    const METALLIC_SPHERE = new THREE.Mesh(METALLIC_SPHERE_GEOMETRY, METALLIC_SPHERE_MATERIAL);
+    METALLIC_SPHERE.position.set(1, 1, -1); 
+    SCENE.add(METALLIC_SPHERE);
     // Standard rough sphere
-    const roughSphereGeometry = new THREE.SphereGeometry(0.5);
-    const roughSphereMaterial = new THREE.MeshStandardMaterial({
+    const ROUGH_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
+    const ROUGH_SPHERE_MATERIAL = new THREE.MeshStandardMaterial({
         color: 'blue',
         metalness: 0,
         roughness: 1
     });
-    const roughSphere = new THREE.Mesh(roughSphereGeometry, roughSphereMaterial);
-    roughSphere.position.set(-1, 1, 1); // 1, 1, -1
-    scene.add(roughSphere);
+    const ROUGH_SPHERE = new THREE.Mesh(ROUGH_SPHERE_GEOMETRY, ROUGH_SPHERE_MATERIAL);
+    ROUGH_SPHERE.position.set(-1, 1, 1); 
+    SCENE.add(ROUGH_SPHERE);
     // Standard mixed sphere
-    const mediumSphereGeometry = new THREE.SphereGeometry(0.5);
-    const mediumSphereMaterial = new THREE.MeshStandardMaterial({
+    const MEDIUM_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
+    const MEDIUM_SPHERE_MATERIAL = new THREE.MeshStandardMaterial({
         color: 'blue',
         metalness: 0.5,
         roughness: 0.5
     });
-    const mediumSphere = new THREE.Mesh(mediumSphereGeometry, mediumSphereMaterial);
-    mediumSphere.position.set(0, 1, 0); // -1, 1, 1
-    scene.add(mediumSphere);
+    const MEDIUM_SPHERE = new THREE.Mesh(MEDIUM_SPHERE_GEOMETRY, MEDIUM_SPHERE_MATERIAL);
+    MEDIUM_SPHERE.position.set(0, 1, 0); 
+    SCENE.add(MEDIUM_SPHERE);
 
     // Basic material sphere
-    const basicSphereGeometry = new THREE.SphereGeometry(0.5);
-    const basicSphereMaterial = new THREE.MeshBasicMaterial({
+    const BASIC_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
+    const BASIC_SPHERE_MATERIAL = new THREE.MeshBasicMaterial({
         color: 'orange',
     });
-    const basicSphere = new THREE.Mesh(basicSphereGeometry, basicSphereMaterial);
-    basicSphere.position.set(1, 1, 3);
-    scene.add(basicSphere);
+    const BASIC_SPHERE = new THREE.Mesh(BASIC_SPHERE_GEOMETRY, BASIC_SPHERE_MATERIAL);
+    BASIC_SPHERE.position.set(1, 1, 3);
+    SCENE.add(BASIC_SPHERE);
 
     // Lambert material sphere
-    const lambertSphereGeometry = new THREE.SphereGeometry(0.5);
-    const lambertSphereMaterial = new THREE.MeshLambertMaterial({
+    const LAMBERT_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
+    const LAMBERT_SPHERE_MATERIAL = new THREE.MeshLambertMaterial({
         color: 'orange',
     });
-    const lambertSphere = new THREE.Mesh(lambertSphereGeometry, lambertSphereMaterial);
-    lambertSphere.position.set(2, 1, 2);
-    scene.add(lambertSphere);
+    const LAMBERT_SPHERE = new THREE.Mesh(LAMBERT_SPHERE_GEOMETRY, LAMBERT_SPHERE_MATERIAL);
+    LAMBERT_SPHERE.position.set(2, 1, 2);
+    SCENE.add(LAMBERT_SPHERE);
 
     // Phong material sphere
-    const phongSphereGeometry = new THREE.SphereGeometry(0.5);
-    const phongSphereMaterial = new THREE.MeshPhongMaterial({
+    const PHONG_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
+    const PHONG_SPHERE_MATERIAL = new THREE.MeshPhongMaterial({
         color: 'orange',
     });
-    const phongSphere = new THREE.Mesh(phongSphereGeometry, phongSphereMaterial);
-    phongSphere.position.set(3, 1, 1);
-    scene.add(phongSphere);
+    const PHONG_SPHERE = new THREE.Mesh(PHONG_SPHERE_GEOMETRY, PHONG_SPHERE_MATERIAL);
+    PHONG_SPHERE.position.set(3, 1, 1);
+    SCENE.add(PHONG_SPHERE);
 
     
     // Floor
-    const floorGeometry = new THREE.PlaneGeometry(10, 10); // Now let's add a floor with dimensions 10x10
-    const floorMaterial = new THREE.MeshBasicMaterial({
+    const FLOOR_GEOMETRY = new THREE.PlaneGeometry(10, 10); // Now let's add a FLOOR with dimensions 10x10
+    const FLOOR_MATERIAL = new THREE.MeshBasicMaterial({
         color: 'purple',
     });
-    const floor = new THREE.Mesh(floorGeometry, floorMaterial); // We create the actual mesh with its geometry and material
-    floor.rotation.x = Math.PI * -0.5; // we rotate it to make it horizontal
-    scene.add(floor); // and we add it to the scene   
+    const FLOOR = new THREE.Mesh(FLOOR_GEOMETRY, FLOOR_MATERIAL); // We create the actual mesh with its geometry and material
+    FLOOR.rotation.x = Math.PI * -0.5; // we rotate it to make it horizontal
+    SCENE.add(FLOOR); // and we add it to the SCENE   
     // Light
-    const lightColor = 'white'; // We need a basic light to be able to see the spheres
-    const intensity = 1.5;
-    const light = new THREE.PointLight(lightColor, intensity);
-    light.position.set(10, 30, 5);
-    scene.add(light);
-    const helper = new THREE.PointLightHelper(light);
-    scene.add(helper);
+    const LIGHT_COLOR = 'white'; // We need a basic LIGHT to be able to see the spheres
+    const INTENSITY = 1.5;
+    const LIGHT = new THREE.PointLight(LIGHT_COLOR, INTENSITY);
+    LIGHT.position.set(10, 30, 5);
+    SCENE.add(LIGHT);
+    const HELPER = new THREE.PointLightHelper(LIGHT);
+    SCENE.add(HELPER);
     function updateLight() {
-        helper.update();
+        HELPER.update();
     }
-    function makeXYZGUI(gui, vector3, name, onChangeFn) { // Used to change light position, has no direct relation with three.js
+    function makeXYZGUI(gui, vector3, name, onChangeFn) { // Used to change LIGHT position, has no direct relation with three.js
         const folder = gui.addFolder(name);
         folder.add(vector3, 'x', -10, 10).onChange(onChangeFn);
         folder.add(vector3, 'y', 0, 10).onChange(onChangeFn);
         folder.add(vector3, 'z', -10, 10).onChange(onChangeFn);
         folder.open();
     }
-    const gui = new GUI();
-    makeXYZGUI(gui, light.position, 'position', updateLight);
+    let gui = new GUI();
+    makeXYZGUI(gui, LIGHT.position, 'position', updateLight);
     // Render
     update(); // Now we call our loop function
     function update() {
-        renderer.render(scene, camera);
+        renderer.render(SCENE, camera);
         requestAnimationFrame(update);
     }
 }

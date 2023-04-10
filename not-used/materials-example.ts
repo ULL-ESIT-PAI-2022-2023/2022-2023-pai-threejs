@@ -4,8 +4,8 @@
  * Grado en Ingeniería Informática
  * Programación de Aplicaciones Interactivas
  *
- * @author Edwin Plasencia Hernández & Gerard Antony Caramazza Vilá
- * @since May 15 2022
+ * @author Francisco Marqués Armas y Julio Carrasco Armas
+ * @since Apr 4 2023
  * @desc Basic materials with three.js
  */
 
