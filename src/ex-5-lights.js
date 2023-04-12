@@ -9,8 +9,9 @@
  * @desc Ambient lights in three.js
  */
 
-import * as THREE from '../node_modules/three/build/three.module.js'
+import * as THREE from '../node_modules/three/build/three.module.js';
 import { GUI } from 'https://threejs.org/examples/jsm/libs/lil-gui.module.min.js';
+import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
 
 'use strict';
 
@@ -20,19 +21,36 @@ function main() {
     canvas: CANVAS,
     alpha: true
   });
+  RENDERER.shadowMap.enabled = true;
+  RENDERER.shadowMap.type = THREE.BasicShadowMap;
+
   // GUI
   const gui = new GUI();
+
   // Camera
-  const FOV = 90;                                                               // Camera's field of view
+  const FOV = 90;
   const ASPECT_RATIO = (CANVAS.width / CANVAS.height);
-  const NEAR = 0.1;                                                             // Nearest point that will be rendered from the camera
-  const FAR = 100;                                                              // Farthest point that will be rendered from the camera
-  const CAMERA = new THREE.PerspectiveCamera(FOV, ASPECT_RATIO, NEAR, FAR);     // Basic perspective camera
-  CAMERA.position.set(4, 3, 0);                                                 // We move to camera to x=2 y=2 z=2
-  CAMERA.lookAt(0, 0, 0);                                                       // and point it to x=0 y=0 z=0
+  const NEAR = 0.1;
+  const FAR = 100;
+  const CAMERA = new THREE.PerspectiveCamera(FOV, ASPECT_RATIO, NEAR, FAR);
+  CAMERA.position.set(4, 3, 0);
+  CAMERA.lookAt(0, 0, 0);
+
+  // Camera controls
+  const CONTROLS = new OrbitControls(CAMERA, RENDERER.domElement);
+
   // Scene
-  const SCENE = new THREE.Scene();                                              // Basic scene
-  SCENE.background = new THREE.Color('white');                                  // We are gonna make the background of the scene white
+  const SCENE = new THREE.Scene();
+  SCENE.background = new THREE.Color('#888888');
+
+  // Floor
+  const GROUND_GEOMETRY = new THREE.BoxGeometry(8, 0.5, 8);
+  const GROUND_MATERIAL = new THREE.MeshPhongMaterial({ color: 0x585868 });
+  const GROUND_MESH = new THREE.Mesh(GROUND_GEOMETRY, GROUND_MATERIAL);
+  GROUND_MESH.position.set(0, 0, 0);
+  GROUND_MESH.receiveShadow = true;
+  SCENE.add(GROUND_MESH);
+
   // Sphere
   const SPHERE_FIRST_GEOMETRY = new THREE.SphereGeometry(0.5);
   const SPHERE_FIRST_MATERIAL = new THREE.MeshPhongMaterial({
@@ -44,6 +62,7 @@ function main() {
   SPHERE_FIRST.castShadow = true;
   SPHERE_FIRST.receiveShadow = true;
   SCENE.add(SPHERE_FIRST);
+
   // Sphere
   const SPHERE_SECOND_GEOMETRY = new THREE.SphereGeometry(0.5);
   const SPHERE_SECOND_MATERIAL = new THREE.MeshPhongMaterial({
@@ -55,6 +74,7 @@ function main() {
   SPHERE_SECOND.castShadow = true;
   SPHERE_SECOND.receiveShadow = true;
   SCENE.add(SPHERE_SECOND);
+
   // Sphere
   const SPHERE_THIRD_GEOMETRY = new THREE.SphereGeometry(0.5);
   const SPHERE_THIRD_MATERIAL = new THREE.MeshPhongMaterial({
@@ -66,13 +86,6 @@ function main() {
   SPHERE_THIRD.castShadow = true;
   SPHERE_THIRD.receiveShadow = true;
   SCENE.add(SPHERE_THIRD);
-  // Floor
-  const GROUND_GEOMETRY = new THREE.BoxGeometry(8, 0.5, 8);
-  const GROUND_MATERIAL = new THREE.MeshPhongMaterial({ color: 0x585868 });
-  const GROUND_MESH = new THREE.Mesh(GROUND_GEOMETRY, GROUND_MATERIAL);
-  GROUND_MESH.position.set(0, 0, 0);
-  GROUND_MESH.receiveShadow = true;
-  SCENE.add(GROUND_MESH);
 
   // Lights
   // Ambient Light
@@ -88,11 +101,15 @@ function main() {
   alFolder.addColor(alSettings, 'color')
   alFolder.onChange((value) => AMBIENT_LIGHT.color.set(value));
   alFolder.open();
+
   // Directional light
   const DIRECTIONAL_COLOR = 'white';
   const DIRECTIONAL_INTENSITY = 0;
   const DIRECTIONAL_LIGHT = new THREE.DirectionalLight(DIRECTIONAL_COLOR, DIRECTIONAL_INTENSITY);
+  DIRECTIONAL_LIGHT.position.set(10, 10, 0);
   DIRECTIONAL_LIGHT.castShadow = true;
+  DIRECTIONAL_LIGHT.shadow.mapSize.width = 1024; // default
+  DIRECTIONAL_LIGHT.shadow.mapSize.height = 1024; // default
   SCENE.add(DIRECTIONAL_LIGHT);
   // Directional light gui
   const dlSettings = {
@@ -103,12 +120,12 @@ function main() {
   dlFolder.add(dlSettings, 'visible').onChange((value) => {
     DIRECTIONAL_LIGHT.visible = value;
   });
-  dlFolder.add(DIRECTIONAL_LIGHT, 'intensity', 0, 1, 0.1);
+  dlFolder.add(DIRECTIONAL_LIGHT, 'intensity', 0, 1.5, 0.1);
   dlFolder.add(DIRECTIONAL_LIGHT, 'castShadow');
-  dlFolder
-    .addColor(dlSettings, 'color')
-    .onChange((value) => DIRECTIONAL_LIGHT.color.set(value));
+  dlFolder.addColor(dlSettings, 'color');
+  dlFolder.onChange((value) => DIRECTIONAL_LIGHT.color.set(value));
   dlFolder.open();
+
   // Spot light
   const SPOT_COLOR = 'white';
   const SPOT_INTENSITY = 0;
@@ -128,6 +145,7 @@ function main() {
   slFolder.add(SPOT_LIGHT, 'angle', Math.PI / 128, Math.PI / 8, Math.PI / 64);
   slFolder.add(SPOT_LIGHT, 'castShadow');
   slFolder.open();
+
   // Point light
   const POINT_COLOR = 'white';
   const POINT_INTENSITY = 0;
@@ -135,7 +153,6 @@ function main() {
   POINT_LIGHT.position.set(2, 2, 2);
   POINT_LIGHT.castShadow = true;
   SCENE.add(POINT_LIGHT)
-
   // Point light gui
   const plSettings = {
     visible: true,
@@ -150,17 +167,31 @@ function main() {
   plFolder.add(POINT_LIGHT.position, 'y', -2, 4, 0.5);
   plFolder.add(POINT_LIGHT.position, 'z', -2, 4, 0.5);
   plFolder.add(POINT_LIGHT, 'castShadow');
-  plFolder
-    .addColor(plSettings, 'color')
-    .onChange((value) => POINT_LIGHT.color.set(value));
+  plFolder.addColor(plSettings, 'color');
+  plFolder.onChange((value) => POINT_LIGHT.color.set(value));
   plFolder.open();
-  // Render
-  update();                                                                     // Now we call our loop function
 
-  function update() {                                                           // The function will keep rendering the scene looking for possible changes
-    RENDERER.render(SCENE, CAMERA);
+  // Hemisphere light
+  const HEMISPHERE_1_COLOR = 0xFF0000;
+  const HEMISPHERE_2_COLOR = 0x000FFF;
+  const HEMISPHERE_INTENSITY = 0;
+  const HEMISPHERE_LIGHT = new THREE.HemisphereLight(HEMISPHERE_1_COLOR, HEMISPHERE_2_COLOR, HEMISPHERE_INTENSITY);
+  SCENE.add(HEMISPHERE_LIGHT);
+  // Hemisphere light gui
+  const hlFolder = gui.addFolder('hemisphere light');
+  hlFolder.add(HEMISPHERE_LIGHT, 'visible');
+  hlFolder.add(HEMISPHERE_LIGHT, 'intensity', 0, 1.5, 0.1);
+  hlFolder.onChange((value) => HEMISPHERE_LIGHT.color.set(value));
+  hlFolder.open();
+
+  // Render
+  function update() {
     requestAnimationFrame(update);
+    CONTROLS.update();
+    RENDERER.render(SCENE, CAMERA);
   }
+
+  update();
 }
 
 // Calls the main function

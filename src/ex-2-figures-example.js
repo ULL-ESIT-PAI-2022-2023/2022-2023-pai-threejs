@@ -1,25 +1,38 @@
-import * as THREE from 'three';
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Programación de Aplicaciones Interactivas
+ *
+ * @author Francisco Marqués Armas y Julio Carrasco Armas
+ * @since Apr 4 2023
+ * @desc Basic materials with three.js
+ */
+import * as THREE from '../node_modules/three/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
 
-'use strict'
+'use strict';
 
 function main() {
     const CANVAS = document.getElementById('canvasBase'); // another way of getting the CANVAS
-    const RENDERER = new THREE.WebGLRenderer({ 
-        antialias: true, 
+    const RENDERER = new THREE.WebGLRenderer({
+        antialias: true,
         canvas: CANVAS,
         alpha: true
     }); // RENDERER
-    const FOV = 60; // field of view: when the number gets bigger, more SCENE is visible
-    const ASPECT_RATIO = 2; // the CANVAS default
-    const NEAR = 0.1; // minimum distance required for OBJECTS to be rendered
-    const FAR = 1000; // maximum distance required for OBJECTS to be rendered
+    const FOV = 60;
+    const ASPECT_RATIO = (CANVAS.width / CANVAS.height);
+    const NEAR = 0.1;
+    const FAR = 1000;
     const CAMERA = new THREE.PerspectiveCamera(FOV, ASPECT_RATIO, NEAR, FAR);
     CAMERA.position.z = 35;
+    // Camera controls
+    const CONTROLS = new OrbitControls(CAMERA, RENDERER.domElement);
     const SCENE = new THREE.Scene();
     SCENE.background = new THREE.Color(0xAAAAAA);
-    // { } are used to avoid variable name conflicts
+
     // Light
-    { 
+    {
         const COLOR = 0xFFFFFF;
         const INTENSITY = 1;
         const LIGHT = new THREE.DirectionalLight(COLOR, INTENSITY);
@@ -115,6 +128,7 @@ function main() {
             obj.rotation.y = rot;
         });
         RENDERER.render(SCENE, CAMERA);
+        CONTROLS.update();
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);

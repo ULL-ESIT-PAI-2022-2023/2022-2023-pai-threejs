@@ -62,7 +62,7 @@ function main() {
   const NEAR_FOG = 1;                                                           // And we are adding fog to it, it will start from 1 block from the camera
   const FAR_FOG = 10;                                                           // and will reach its end at 4 blocks away
   const COLOR_FOG = 'white';   
-  NORMAL_FOG = new THREE.Fog(COLOR_FOG, NEAR_FOG, FAR_FOG);                                                 // it will also be a white fog, although we could make it any color we want
+  const NORMAL_FOG = new THREE.Fog(COLOR_FOG, NEAR_FOG, FAR_FOG);                                                 // it will also be a white fog, although we could make it any color we want
   SCENE.fog = NORMAL_FOG;                                                       // We add the fog to the scene
   SCENE.background = new THREE.Color(COLOR_FOG);
   
