@@ -119,41 +119,51 @@ function main() {
   MEDIUM_SPHERE.position.set(0, 1, 0);
   SCENE.add(MEDIUM_SPHERE);
 
-  // Basic material sphere
-  const BASIC_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
-  const BASIC_SPHERE_MATERIAL = new THREE.MeshLambertMaterial({
+  // Lambert material sphere
+  const LAMBERT_DIM_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
+  const LAMBERT_DIM_SPHERE_MATERIAL = new THREE.MeshLambertMaterial({
     color: 'orange',
     emissive: 0x004a4a,
     emissiveIntensity: 0,
     side: THREE.DoubleSide
   });
-  const BASIC_SPHERE = new THREE.Mesh(BASIC_SPHERE_GEOMETRY, BASIC_SPHERE_MATERIAL);
-  BASIC_SPHERE.position.set(1, 1, 3);
-  SCENE.add(BASIC_SPHERE);
+  const LAMBERT_DIM_SPHERE = new THREE.Mesh(LAMBERT_DIM_SPHERE_GEOMETRY, LAMBERT_DIM_SPHERE_MATERIAL);
+  LAMBERT_DIM_SPHERE.position.set(1, 1, 3);
+  SCENE.add(LAMBERT_DIM_SPHERE);
 
   // Lambert material sphere
-  const LAMBERT_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
-  const LAMBERT_SPHERE_MATERIAL = new THREE.MeshLambertMaterial({
+  const LAMBERT_HALF_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
+  const LAMBERT_HALF_SPHERE_MATERIAL = new THREE.MeshLambertMaterial({
     color: 'orange',
     emissive: 0x004a4a,
     emissiveIntensity: 0.5,
     side: THREE.DoubleSide
   });
-  const LAMBERT_SPHERE = new THREE.Mesh(LAMBERT_SPHERE_GEOMETRY, LAMBERT_SPHERE_MATERIAL);
-  LAMBERT_SPHERE.position.set(2, 1, 2);
-  SCENE.add(LAMBERT_SPHERE);
+  const LAMBERT_HALF_SPHERE = new THREE.Mesh(LAMBERT_HALF_SPHERE_GEOMETRY, LAMBERT_HALF_SPHERE_MATERIAL);
+  LAMBERT_HALF_SPHERE.position.set(2, 1, 2);
+  SCENE.add(LAMBERT_HALF_SPHERE);
 
-  // Phong material sphere
-  const PHONG_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
-  const PHONG_SPHERE_MATERIAL = new THREE.MeshLambertMaterial({
+  // Lambert material sphere
+  const LAMBERT_FULL_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
+  const LAMBERT_FULL_SPHERE_MATERIAL = new THREE.MeshLambertMaterial({
     color: 'orange',
     emissive: 0x004a4a,
     emissiveIntensity: 1,
     side: THREE.DoubleSide
   });
-  const PHONG_SPHERE = new THREE.Mesh(PHONG_SPHERE_GEOMETRY, PHONG_SPHERE_MATERIAL);
-  PHONG_SPHERE.position.set(3, 1, 1);
-  SCENE.add(PHONG_SPHERE);
+  const LAMBERT_FULL_SPHERE = new THREE.Mesh(LAMBERT_FULL_SPHERE_GEOMETRY, LAMBERT_FULL_SPHERE_MATERIAL);
+  LAMBERT_FULL_SPHERE.position.set(3, 1, 1);
+  SCENE.add(LAMBERT_FULL_SPHERE);
+
+  // Basic material sphere
+  const BASIC_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
+  const BASIC_SPHERE_MATERIAL = new THREE.MeshBasicMaterial({
+    color: 'green',
+  });
+  const BASIC_SPHERE = new THREE.Mesh(BASIC_SPHERE_GEOMETRY, BASIC_SPHERE_MATERIAL);
+  BASIC_SPHERE.position.set(3, 1, 3);
+  SCENE.add(BASIC_SPHERE);
+
 
   // Render
   update();
