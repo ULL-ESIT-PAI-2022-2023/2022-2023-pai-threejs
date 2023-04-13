@@ -17,12 +17,13 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 'use strict';
 
 function main() {
-  let CANVAS = document.getElementById('canvasBase');
+  const CANVAS = document.getElementById('canvasBase');
   const RENDERER = new THREE.WebGLRenderer({
     canvas: CANVAS,
     alpha: true,
-    antialas: true
+    antialias: true
   });
+  // We create a vector to save the objects to make them rotate later
   const OBJECTS = [];
 
   // Camera
@@ -36,60 +37,47 @@ function main() {
 
   // Camera controls
   const CONTROLS = new OrbitControls(CAMERA, RENDERER.domElement);
-  
-  // Importing the model
-  const gltfLoader = new GLTFLoader();
-  gltfLoader.load('src/3d_model/scene.gltf', (gltf) => {
-    const root = gltf.scene;
-    SCENE.add(root);
-    OBJECTS.push(root);
-
-    // compute the box that contains all the stuff
-    // from root and below
-    const box = new THREE.Box3().setFromObject(root);
-
-    const boxSize = box.getSize(new THREE.Vector3()).length();
-    const boxCenter = box.getCenter(new THREE.Vector3());
-
-    // set the camera to frame the box
-    frameArea(boxSize * 0.5, boxSize, boxCenter, CAMERA);
-
-    // update the Trackball controls to handle the new size
-    CONTROLS.maxDistance = boxSize * 10;
-    CONTROLS.target.copy(boxCenter);
-    CONTROLS.update();
-  });
 
   // Scene
   const SCENE = new THREE.Scene();
   SCENE.background = new THREE.Color('white');
+
+  // Importing the model and we add it to objects vector to make it spin
+  const GLTF_LOADER = new GLTFLoader();
+  GLTF_LOADER.load('src/3d_model/scene.gltf', (gltf) => {
+    const ROOT = gltf.scene;
+    SCENE.add(ROOT);
+    OBJECTS.push(ROOT);
+  });
+
   // Textures
+  // We load our background
   const LOADER = new THREE.TextureLoader();
   const BACKGROUND = LOADER.load('../src/textures/planets.jpg');
-  const GRASS = LOADER.load('../src/textures/grass.jpg');
   SCENE.background = BACKGROUND;
+
   // Light
-  const HEMISPHERE_1_COLOR = 0xFFFFFF;
-  const HEMISPHERE_2_COLOR = 0x979797;
-  const HEMISPHERE_INTENSITY = 2;
-  const HEMISPHERE_LIGHT = new THREE.HemisphereLight(HEMISPHERE_1_COLOR, HEMISPHERE_2_COLOR, HEMISPHERE_INTENSITY);
-  SCENE.add(HEMISPHERE_LIGHT);
+  const AMBIENT_COLOR = 0xFFFFFF;
+  const AMBIENT_INTENSITY = 2;
+  const AMBIENT_LIGHT = new THREE.AmbientLight(AMBIENT_COLOR, AMBIENT_INTENSITY);
+  SCENE.add(AMBIENT_LIGHT);
 
   // Render
-  function render(time) {
-    time *= 0.001; // Time to seconds
+  function update(time) {
+    time *= 0.005; // Time to seconds
     // Make OBJECTS rotate
     OBJECTS.forEach((obj, ndx) => {
-      const SPEED = .3 + ndx * .2;
+      const SPEED = .1 + ndx * .1;
       const ROTATION = time * SPEED;
       obj.rotation.x = ROTATION;
       obj.rotation.y = ROTATION;
     });
-    requestAnimationFrame(render);
-    CONTROLS.update();
     RENDERER.render(SCENE, CAMERA);
+    CONTROLS.update();
+    requestAnimationFrame(update);
   }
-  requestAnimationFrame(render);
+
+  requestAnimationFrame(update);
 }
 
 // Calls the main function

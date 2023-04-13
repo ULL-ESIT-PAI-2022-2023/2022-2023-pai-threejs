@@ -30,7 +30,7 @@ class ColorGUIHelper {
 }
 
 function main() {
-  let CANVAS: HTMLCanvasElement = document.getElementById('canvasBase') as HTMLCanvasElement; // Canvas
+  const CANVAS: HTMLCanvasElement = document.getElementById('canvasBase') as HTMLCanvasElement; // Canvas
   const RENDERER = new THREE.WebGLRenderer({          // Renderer
     canvas: CANVAS,
     alpha: true                                       // The canvas will accept transparency
@@ -125,13 +125,13 @@ function main() {
     helper.update();
   }
   function makeXYZGUI(gui, vector3, name, onChangeFn) {
-    const folder = gui.addFolder(name);
+    const folder = GUI_LIGHTS.addFolder(name);
     folder.add(vector3, 'x', -10, 10).onChange(onChangeFn);
     folder.add(vector3, 'y', 0, 10).onChange(onChangeFn);
     folder.add(vector3, 'z', -10, 10).onChange(onChangeFn);
     folder.open();
   }
-  // const gui = new GUI();
+  // const GUI_LIGHTS = new GUI();
   // makeXYZGUI(gui, LIGHT.position, 'position', updateLight);
 
 

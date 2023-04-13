@@ -15,13 +15,16 @@ import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/Orb
 'use strict';
 
 function main() {
-  let CANVAS = document.getElementById('canvasBase');
+  const CANVAS = document.getElementById('canvasBase');
   const RENDERER = new THREE.WebGLRenderer({
     canvas: CANVAS,
     alpha: true,
-    antialas: true
+    antialias: true
   });
+  
+  // We create a vector to save the objects to make them rotate later
   const OBJECTS = [];
+
   // Camera
   const FOV = 90;
   const ASPECT_RATIO = (CANVAS.width / CANVAS.height);
@@ -30,6 +33,7 @@ function main() {
   const CAMERA = new THREE.PerspectiveCamera(FOV, ASPECT_RATIO, NEAR, FAR);
   CAMERA.position.set(2, 3, 2);
   CAMERA.lookAt(0, 0, 0);
+
   // Camera controls
   const CONTROLS = new OrbitControls(CAMERA, RENDERER.domElement);
 
@@ -37,11 +41,15 @@ function main() {
   const SCENE = new THREE.Scene();
   SCENE.background = new THREE.Color('white');
   // Textures
+  // We load the texture of our background, this way it will be a static image in the back
   const LOADER = new THREE.TextureLoader();
   const BACKGROUND = LOADER.load('../src/textures/planets.jpg');
   const GRASS = LOADER.load('../src/textures/grass.jpg');
   SCENE.background = BACKGROUND;
-  // Floor
+
+  // Box
+  // We create a box to have an element in our scene that contrasts against
+  // the background
   const BOX_GEOMETRY = new THREE.BoxGeometry(2, 2, 2);
   const BOX_MATERIAL = new THREE.MeshBasicMaterial({
     color: 'white',
@@ -51,6 +59,7 @@ function main() {
   BOX.rotation.x = Math.PI * -.5;
   SCENE.add(BOX);
   OBJECTS.push(BOX);
+
   // Light
   const COLOR = 'white';
   const INTENSITY = 1.5;
@@ -71,8 +80,6 @@ function main() {
     requestAnimationFrame(render);
     CONTROLS.update();
     RENDERER.render(SCENE, CAMERA);
-
-
   }
   requestAnimationFrame(render);
 }

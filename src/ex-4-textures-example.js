@@ -14,13 +14,14 @@ import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/Orb
 'use strict';
 
 function main() {
-  let CANVAS = document.getElementById('canvasBase');
+  const CANVAS = document.getElementById('canvasBase');
   const RENDERER = new THREE.WebGLRenderer({
     canvas: CANVAS,
     alpha: true,
-    antialas: true
+    antialias: true
   });
   const OBJECTS = [];
+
   // Camera
   const FOV = 90;
   const ASPECT_RATIO = (CANVAS.width / CANVAS.height);
@@ -29,18 +30,23 @@ function main() {
   const CAMERA = new THREE.PerspectiveCamera(FOV, ASPECT_RATIO, NEAR, FAR);
   CAMERA.position.set(2, 3, 2);
   CAMERA.lookAt(0, 0, 0);
+
   // Camera controls
   const CONTROLS = new OrbitControls(CAMERA, RENDERER.domElement);
 
   // Scene
   const SCENE = new THREE.Scene();
   SCENE.background = new THREE.Color('white');
+
+  // We load the textures that our objects will use
   // Textures
   const LOADER = new THREE.TextureLoader();
   const BRICKS = LOADER.load('../src/textures/bricks.jpg');
   const TILES = LOADER.load('../src/textures/tiles.jpg');
   const GRASS = LOADER.load('../src/textures/grass.jpg');
   const WOOD = LOADER.load('../src/textures/wood.jpg');
+
+  // We create the objects that we will use to display the textures
   // Sphere
   const SPHERE_BRICKS_GEOMETRY = new THREE.SphereGeometry(0.5);
   const SPHERE_BRICKS_MATERIAL = new THREE.MeshBasicMaterial({
@@ -51,6 +57,7 @@ function main() {
   SPHERE_BRICKS.position.set(0, 1, 0);
   SCENE.add(SPHERE_BRICKS);
   OBJECTS.push(SPHERE_BRICKS);
+
   // Sphere
   const SPHERE_TILES_GEOMETRY = new THREE.SphereGeometry(0.5);
   const SPHERE_TILES_MATERIAL = new THREE.MeshBasicMaterial({
@@ -60,6 +67,7 @@ function main() {
   SPHERE_TILES.position.set(-1, 1, 1);
   SCENE.add(SPHERE_TILES);
   OBJECTS.push(SPHERE_TILES);
+
   // Sphere
   const SPHERE_WOOD_GEOMETRY = new THREE.SphereGeometry(0.5);
   const SPHERE_WOOD_MATERIAL = new THREE.MeshBasicMaterial({
@@ -70,6 +78,8 @@ function main() {
   SPHERE_WOOD.position.set(1, 1, -1);
   SCENE.add(SPHERE_WOOD);
   OBJECTS.push(SPHERE_WOOD);
+
+  // We create a cube with all 6 sides with textures assigned
   // Cube
   const CUBE_MATERIALS = [
     new THREE.MeshBasicMaterial({ map: LOADER.load('../src/textures/bricks.jpg') }),
@@ -85,6 +95,8 @@ function main() {
   CUBE.rotation.y = Math.PI * -0.20;
   SCENE.add(CUBE);
   OBJECTS.push(CUBE);
+
+  // We create a floor with a texture
   // Floor
   const FLOOR_GEOMETRY = new THREE.PlaneGeometry(10, 10);
   const FLOOR_MATERIAL = new THREE.MeshBasicMaterial({
@@ -94,6 +106,8 @@ function main() {
   const FLOOR = new THREE.Mesh(FLOOR_GEOMETRY, FLOOR_MATERIAL);
   FLOOR.rotation.x = Math.PI * -.5;
   SCENE.add(FLOOR);
+
+  // Light
   const COLOR = 'white';
   const INTENSITY = 1.5;
   const LIGHT = new THREE.PointLight(COLOR, INTENSITY);
@@ -101,7 +115,7 @@ function main() {
   SCENE.add(LIGHT);
 
   // Render
-  function render(time) {
+  function update(time) {
     time *= 0.001; // Time to seconds
     // Make OBJECTS rotate
     OBJECTS.forEach((obj, ndx) => {
@@ -110,13 +124,12 @@ function main() {
       obj.rotation.x = ROTATION;
       obj.rotation.y = ROTATION;
     });
-    requestAnimationFrame(render);
+    requestAnimationFrame(update);
     CONTROLS.update();
     RENDERER.render(SCENE, CAMERA);
-
-
   }
-  requestAnimationFrame(render);
+
+  requestAnimationFrame(update);
 }
 
 // Calls the main function

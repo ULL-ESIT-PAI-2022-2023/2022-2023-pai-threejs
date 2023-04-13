@@ -14,7 +14,7 @@ import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/Orb
 'use strict';
 
 function main() {
-  let CANVAS = document.getElementById('canvasBase'); // Canvas
+  const CANVAS = document.getElementById('canvasBase'); // Canvas
   const RENDERER = new THREE.WebGLRenderer({
     canvas: CANVAS,
     alpha: true // The canvas will accept transparency
@@ -166,12 +166,13 @@ function main() {
 
 
   // Render
-  update();
   function update() {
     RENDERER.render(SCENE, CAMERA);
     CONTROLS.update();
     requestAnimationFrame(update);
   }
+
+  update();
 }
 
 main();
