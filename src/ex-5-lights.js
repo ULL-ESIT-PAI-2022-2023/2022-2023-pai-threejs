@@ -21,8 +21,6 @@ function main() {
     canvas: CANVAS,
     alpha: true
   });
-  RENDERER.shadowMap.enabled = true;
-  RENDERER.shadowMap.type = THREE.BasicShadowMap;
 
   // GUI
   const gui = new GUI();
@@ -48,7 +46,6 @@ function main() {
   const GROUND_MATERIAL = new THREE.MeshPhongMaterial({ color: 0x585868 });
   const GROUND_MESH = new THREE.Mesh(GROUND_GEOMETRY, GROUND_MATERIAL);
   GROUND_MESH.position.set(0, 0, 0);
-  GROUND_MESH.receiveShadow = true;
   SCENE.add(GROUND_MESH);
 
   // Sphere
@@ -59,8 +56,6 @@ function main() {
   });
   const SPHERE_FIRST = new THREE.Mesh(SPHERE_FIRST_GEOMETRY, SPHERE_FIRST_MATERIAL);
   SPHERE_FIRST.position.set(1, 1, 0);
-  SPHERE_FIRST.castShadow = true;
-  SPHERE_FIRST.receiveShadow = true;
   SCENE.add(SPHERE_FIRST);
 
   // Sphere
@@ -71,8 +66,6 @@ function main() {
   });
   const SPHERE_SECOND = new THREE.Mesh(SPHERE_SECOND_GEOMETRY, SPHERE_SECOND_MATERIAL);
   SPHERE_SECOND.position.set(1, 1, 2);
-  SPHERE_SECOND.castShadow = true;
-  SPHERE_SECOND.receiveShadow = true;
   SCENE.add(SPHERE_SECOND);
 
   // Sphere
@@ -83,8 +76,6 @@ function main() {
   });
   const SPHERE_THIRD = new THREE.Mesh(SPHERE_THIRD_GEOMETRY, SPHERE_THIRD_MATERIAL);
   SPHERE_THIRD.position.set(1, 1, -2);
-  SPHERE_THIRD.castShadow = true;
-  SPHERE_THIRD.receiveShadow = true;
   SCENE.add(SPHERE_THIRD);
 
   // Lights
@@ -107,9 +98,6 @@ function main() {
   const DIRECTIONAL_INTENSITY = 0;
   const DIRECTIONAL_LIGHT = new THREE.DirectionalLight(DIRECTIONAL_COLOR, DIRECTIONAL_INTENSITY);
   DIRECTIONAL_LIGHT.position.set(10, 10, 0);
-  DIRECTIONAL_LIGHT.castShadow = true;
-  DIRECTIONAL_LIGHT.shadow.mapSize.width = 1024; // default
-  DIRECTIONAL_LIGHT.shadow.mapSize.height = 1024; // default
   SCENE.add(DIRECTIONAL_LIGHT);
   // Directional light gui
   const dlSettings = {
@@ -121,7 +109,6 @@ function main() {
     DIRECTIONAL_LIGHT.visible = value;
   });
   dlFolder.add(DIRECTIONAL_LIGHT, 'intensity', 0, 1.5, 0.1);
-  dlFolder.add(DIRECTIONAL_LIGHT, 'castShadow');
   dlFolder.addColor(dlSettings, 'color');
   dlFolder.onChange((value) => DIRECTIONAL_LIGHT.color.set(value));
   dlFolder.open();
@@ -131,7 +118,6 @@ function main() {
   const SPOT_INTENSITY = 0;
   const SPOT_LIGHT = new THREE.SpotLight(SPOT_COLOR, SPOT_INTENSITY, 8, Math.PI / 8, 0);
   SPOT_LIGHT.position.set(4, 4, 4);
-  SPOT_LIGHT.castShadow = true;
   SCENE.add(SPOT_LIGHT);
   // Spot light gui
   const slSettings = {
@@ -143,7 +129,6 @@ function main() {
   });
   slFolder.add(SPOT_LIGHT, 'intensity', 0, 4, 0.25);
   slFolder.add(SPOT_LIGHT, 'angle', Math.PI / 128, Math.PI / 8, Math.PI / 64);
-  slFolder.add(SPOT_LIGHT, 'castShadow');
   slFolder.open();
 
   // Point light
@@ -151,7 +136,6 @@ function main() {
   const POINT_INTENSITY = 0;
   const POINT_LIGHT = new THREE.PointLight(POINT_COLOR, POINT_INTENSITY, 8, 2);
   POINT_LIGHT.position.set(2, 2, 2);
-  POINT_LIGHT.castShadow = true;
   SCENE.add(POINT_LIGHT)
   // Point light gui
   const plSettings = {
@@ -166,7 +150,6 @@ function main() {
   plFolder.add(POINT_LIGHT.position, 'x', -2, 4, 0.5);
   plFolder.add(POINT_LIGHT.position, 'y', -2, 4, 0.5);
   plFolder.add(POINT_LIGHT.position, 'z', -2, 4, 0.5);
-  plFolder.add(POINT_LIGHT, 'castShadow');
   plFolder.addColor(plSettings, 'color');
   plFolder.onChange((value) => POINT_LIGHT.color.set(value));
   plFolder.open();
