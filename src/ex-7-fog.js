@@ -14,8 +14,25 @@ import {GUI} from 'https://threejs.org/examples/jsm/libs/lil-gui.module.min.js';
 
 'use strict';
 
+class FogHelper {
+  constructor(useFogExp2 = false, fogExp2Density = 0.05) {
+    this.useFogExp2 = useFogExp2;
+    this.fogExp2Density = fogExp2Density;
+  }
+}
+
 
 function main() {
+  function changeFogType() {
+    if (FOG_HELPER.useFogExp2) {
+      SCENE.fog = new THREE.FogExp2(COLOR_FOG, FOG_HELPER.fogExp2Density);
+    } else {
+      SCENE.fog = NORMAL_FOG;
+    }
+    SCENE.background = new THREE.Color(COLOR_FOG);
+  }
+  
+  
   let CANVAS = document.getElementById('canvasBase'); // Canvas
   const RENDERER = new THREE.WebGLRenderer({          // Renderer
     canvas: CANVAS,
@@ -40,28 +57,25 @@ function main() {
   SCENE.background = new THREE.Color(COLOR_FOG);
   
   const gui = new GUI();                                                        // Don't pay attention to this part as it's just a graphical interface
+  const FOG_HELPER = new FogHelper();
+  gui.add(FOG_HELPER, 'useFogExp2').name('Use FogExp2').onChange(changeFogType);  
   const normalFogSettings = {
     near: NEAR_FOG,
     far: FAR_FOG
   };
   
-<<<<<<< HEAD
-=======
+
   // Normal fog gui
   const normalFogFolder = gui.addFolder('Normal Fog');
-  normalFogFolder.add(normalFogSettings, 'near').onChange((value) => {
-    NORMAL_FOG.near = value;
-  });
-  normalFogFolder.add(normalFogSettings, 'far').onChange((value) => {
-    NORMAL_FOG.far = value;
-  });
-
   normalFogFolder.add(NORMAL_FOG, 'near', NEAR_FOG, FAR_FOG);
   normalFogFolder.add(NORMAL_FOG, 'far', NEAR_FOG, FAR_FOG);
   normalFogFolder.open();
 
+  //FogExp2 (realistic) fog gui
+  const fogExp2Folder = gui.addFolder('FogExp2');
+  fogExp2Folder.add(FOG_HELPER, 'fogExp2Density', 0.01, 0.5).name('Density').onChange(changeFogType);
+  fogExp2Folder.open();
 
->>>>>>> cd2621f85622a963162b11040e12046bd731672a
   // Textures
   const LOADER = new THREE.TextureLoader();                                     // We initialize our texture loader
   const BRICKS = LOADER.load('./src/textures/bricks.jpg');                      // And save our textures in constants to be able to load them

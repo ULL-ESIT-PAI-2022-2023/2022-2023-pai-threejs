@@ -36,33 +36,26 @@ function main() {
   camera.position.set(5, 5, 5);                                                 // We move to camera to x=2 y=2 z=2
   camera.zoom = 0.2;
   camera.lookAt(0, 0, 0);                                                       // and point it to x=0 y=0 z=0
-  let controls = new OrbitControls(camera, RENDERER.domElement);
   function changeCameraType() {
     console.log(CHANGE_CAMERA_HELPER.useOrthographic);
-    
-    let prevPosition = camera.position.clone();
-    let prevZoom = camera.zoom;
-    
-    if (CHANGE_CAMERA_HELPER.useOrthographic && camera.type !== "OrthographicCamera") {
+    if (CHANGE_CAMERA_HELPER.useOrthographic) {
       camera = new THREE.OrthographicCamera(-10, 10, 10, -10, CHANGE_CAMERA_HELPER.near, CHANGE_CAMERA_HELPER.far);
-    } else if (!CHANGE_CAMERA_HELPER.useOrthographic && camera.type !== "PerspectiveCamera") {
-      camera = new THREE.PerspectiveCamera(75, 2, CHANGE_CAMERA_HELPER.near, CHANGE_CAMERA_HELPER.far);
+      camera.position.set(4, 4, 4);
+      camera.zoom = 0.2;
+      camera.lookAt(0, 0, 0);
     } else {
-      camera.near = CHANGE_CAMERA_HELPER.near;
-      camera.far = CHANGE_CAMERA_HELPER.far;
+      camera = new THREE.PerspectiveCamera(75, 2, CHANGE_CAMERA_HELPER.near, CHANGE_CAMERA_HELPER.far);
+      camera.position.set(4, 4, 4);
+      camera.zoom = 0.2;
+      camera.lookAt(0, 0, 0);
     }
-    
-    camera.position.copy(prevPosition);
-    camera.zoom = prevZoom;
-    camera.lookAt(0, 0, 0);
-    camera.updateProjectionMatrix(); // Update the camera projection matrix
-    controls = new OrbitControls(camera, RENDERER.domElement);
   }
-    let gui = new GUI();
+  let gui = new GUI();
   const CHANGE_CAMERA_HELPER = new ChangeCameraHelper();
   gui.add(CHANGE_CAMERA_HELPER, 'useOrthographic').name('Use Orthographic Camera').onChange(changeCameraType);
   gui.add(CHANGE_CAMERA_HELPER, 'near', 0.1, 10).name('Near').onChange(changeCameraType);
-  gui.add(CHANGE_CAMERA_HELPER, 'far', 5, 200).name('Far').onChange(changeCameraType);
+  gui.add(CHANGE_CAMERA_HELPER, 'far', 1, 20).name('Far').onChange(changeCameraType);
+
   // Scene
   const SCENE = new THREE.Scene();                                              //Basic SCENE
   // Cube
@@ -95,7 +88,6 @@ function main() {
   update();                                                                     // Now we call our loop function
 
   function update() {      
-    controls.update();                                                     // The function will keep rendering the SCENE looking for possible changes
     RENDERER.render(SCENE, camera);
     requestAnimationFrame(update);
   }

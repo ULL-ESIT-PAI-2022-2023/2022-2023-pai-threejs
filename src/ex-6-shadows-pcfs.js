@@ -22,7 +22,7 @@ function main() {
     alpha: true
   });
   RENDERER.shadowMap.enabled = true;
-  RENDERER.shadowMap.type = THREE.BasicShadowMap;
+  RENDERER.shadowMap.type = THREE.PCFSoftShadowMap;
   RENDERER.shadowMap.autoUpdate = true;
 
   // GUI
