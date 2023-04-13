@@ -14,33 +14,6 @@ import {GUI} from 'https://threejs.org/examples/jsm/libs/lil-gui.module.min.js';
 
 'use strict';
 
-// class FogGUIHelper {                                                                    // Not related to three.js, just part of the graphical interface
-//   constructor(fog, backgroundColor) {
-//     this.fog = fog;
-//     this.backgroundColor = backgroundColor;
-//   }
-//   get near() {
-//     return this.fog.near;
-//   }
-//   set near(v) {
-//     this.fog.near = v;
-//     this.fog.far = Math.max(this.fog.far, v);
-//   }
-//   get far() {
-//     return this.fog.far;
-//   }
-//   set far(v) {
-//     this.fog.far = v;
-//     this.fog.near = Math.min(this.fog.near, v);
-//   }
-//   get color() {
-//     return `#${this.fog.color.getHexString()}`;
-//   }
-//   set color(hexString) {
-//     this.fog.color.set(hexString);
-//     this.backgroundColor.set(hexString);
-//   }
-// }
 
 function main() {
   let CANVAS = document.getElementById('canvasBase'); // Canvas
@@ -72,6 +45,23 @@ function main() {
     far: FAR_FOG
   };
   
+<<<<<<< HEAD
+=======
+  // Normal fog gui
+  const normalFogFolder = gui.addFolder('Normal Fog');
+  normalFogFolder.add(normalFogSettings, 'near').onChange((value) => {
+    NORMAL_FOG.near = value;
+  });
+  normalFogFolder.add(normalFogSettings, 'far').onChange((value) => {
+    NORMAL_FOG.far = value;
+  });
+
+  normalFogFolder.add(NORMAL_FOG, 'near', NEAR_FOG, FAR_FOG);
+  normalFogFolder.add(NORMAL_FOG, 'far', NEAR_FOG, FAR_FOG);
+  normalFogFolder.open();
+
+
+>>>>>>> cd2621f85622a963162b11040e12046bd731672a
   // Textures
   const LOADER = new THREE.TextureLoader();                                     // We initialize our texture loader
   const BRICKS = LOADER.load('./src/textures/bricks.jpg');                      // And save our textures in constants to be able to load them
