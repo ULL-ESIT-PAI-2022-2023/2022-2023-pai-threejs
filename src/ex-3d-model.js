@@ -13,6 +13,7 @@ import * as THREE from '../node_modules/three/build/three.module.js';
 import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+
 'use strict';
 
 function main() {
@@ -23,6 +24,7 @@ function main() {
     antialas: true
   });
   const OBJECTS = [];
+
   // Camera
   const FOV = 90;
   const ASPECT_RATIO = (CANVAS.width / CANVAS.height);
@@ -31,6 +33,7 @@ function main() {
   const CAMERA = new THREE.PerspectiveCamera(FOV, ASPECT_RATIO, NEAR, FAR);
   CAMERA.position.set(1, 1, 2);
   CAMERA.lookAt(0, 0, 0);
+
   // Camera controls
   const CONTROLS = new OrbitControls(CAMERA, RENDERER.domElement);
   
@@ -66,11 +69,11 @@ function main() {
   const GRASS = LOADER.load('../src/textures/grass.jpg');
   SCENE.background = BACKGROUND;
   // Light
-  const COLOR = 'white';
-  const INTENSITY = 3;
-  const LIGHT = new THREE.PointLight(COLOR, INTENSITY);
-  LIGHT.position.set(0, 5, 2);
-  SCENE.add(LIGHT);
+  const HEMISPHERE_1_COLOR = 0xFFFFFF;
+  const HEMISPHERE_2_COLOR = 0x979797;
+  const HEMISPHERE_INTENSITY = 2;
+  const HEMISPHERE_LIGHT = new THREE.HemisphereLight(HEMISPHERE_1_COLOR, HEMISPHERE_2_COLOR, HEMISPHERE_INTENSITY);
+  SCENE.add(HEMISPHERE_LIGHT);
 
   // Render
   function render(time) {
@@ -85,8 +88,6 @@ function main() {
     requestAnimationFrame(render);
     CONTROLS.update();
     RENDERER.render(SCENE, CAMERA);
-
-
   }
   requestAnimationFrame(render);
 }
