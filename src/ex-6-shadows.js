@@ -6,7 +6,7 @@
  *
  * @author Francisco Marqués Armas y Julio Carrasco Armas
  * @since Apr 4 2023
- * @desc Ambient lights in three.js
+ * @desc Shadows using BasicShadowMap in three.js
  */
 
 import * as THREE from '../node_modules/three/build/three.module.js';
