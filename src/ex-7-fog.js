@@ -72,25 +72,6 @@ function main() {
     far: FAR_FOG
   };
   
-  // Normal fog gui
-  const normalFogFolder = gui.addFolder('Normal Fog');
-  normalFogFolder.add(normalFogSettings, 'near').onChange((value) => {
-    NORMAL_FOG.near = value;
-  });
-  normalFogFolder.add(normalFogSettings, 'near').onChange((value) => {
-    NORMAL_FOG.far = value;
-  });
-
-  normalFogFolder.add(NORMAL_FOG, 'near', NEAR_FOG, FAR_FOG);
-  normalFogFolder.add(NORMAL_FOG, 'far', NEAR_FOG, FAR_FOG);
-  normalFogFolder.open();
-
-
-  // const fogGUIHelper = new FogGUIHelper(SCENE.fog, SCENE.background);           // to change the fog values, it's not related to three.js
-  // gui.add(fogGUIHelper, 'near', NEAR_FOG, FAR_FOG).listen();
-  // gui.add(fogGUIHelper, 'far', NEAR_FOG, FAR_FOG).listen();
-  // gui.addColor(fogGUIHelper, 'color');
-
   // Textures
   const LOADER = new THREE.TextureLoader();                                     // We initialize our texture loader
   const BRICKS = LOADER.load('./src/textures/bricks.jpg');                      // And save our textures in constants to be able to load them

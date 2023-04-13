@@ -11,12 +11,15 @@
 
 import * as THREE from '../node_modules/three/build/three.module.js';
 import {GUI} from 'https://threejs.org/examples/jsm/libs/lil-gui.module.min.js';
+import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
 
 'use strict';
 
-class ChangeCameraHelper {                                                             // This is also needed to create the graphical interface,
-  constructor(type=1) {                                      // again, doesn't have anything to do with three.js so don't worry
-    this.type = type;
+class ChangeCameraHelper {
+  constructor(useOrthographic = true, near = 0.1, far = 100) {
+    this.useOrthographic = useOrthographic;
+    this.near = near;
+    this.far = far;
   }
 }
 
@@ -33,29 +36,33 @@ function main() {
   camera.position.set(5, 5, 5);                                                 // We move to camera to x=2 y=2 z=2
   camera.zoom = 0.2;
   camera.lookAt(0, 0, 0);                                                       // and point it to x=0 y=0 z=0
-
-
+  let controls = new OrbitControls(camera, RENDERER.domElement);
   function changeCameraType() {
-    console.log(CHANGE_CAMERA_HELPER.type);
-    if (CHANGE_CAMERA_HELPER.type == 0) {
-      camera = new THREE.OrthographicCamera(-10, 10, 10, -10, NEAR, FAR);
-      camera.position.set(4, 4, 4);                                                 // We move to camera to x=2 y=2 z=2
-      camera.zoom = 0.2;
-      camera.lookAt(0, 0, 0);                                                       // and point it to x=0 y=0 z=0
+    console.log(CHANGE_CAMERA_HELPER.useOrthographic);
     
+    let prevPosition = camera.position.clone();
+    let prevZoom = camera.zoom;
+    
+    if (CHANGE_CAMERA_HELPER.useOrthographic && camera.type !== "OrthographicCamera") {
+      camera = new THREE.OrthographicCamera(-10, 10, 10, -10, CHANGE_CAMERA_HELPER.near, CHANGE_CAMERA_HELPER.far);
+    } else if (!CHANGE_CAMERA_HELPER.useOrthographic && camera.type !== "PerspectiveCamera") {
+      camera = new THREE.PerspectiveCamera(75, 2, CHANGE_CAMERA_HELPER.near, CHANGE_CAMERA_HELPER.far);
     } else {
-      camera = new THREE.PerspectiveCamera(75, 2, NEAR, FAR);
-      camera.position.set(4, 4, 4);                                                 // We move to camera to x=2 y=2 z=2
-      camera.zoom = 0.2;
-      camera.lookAt(0, 0, 0);                                                       // and point it to x=0 y=0 z=0
-    
+      camera.near = CHANGE_CAMERA_HELPER.near;
+      camera.far = CHANGE_CAMERA_HELPER.far;
     }
+    
+    camera.position.copy(prevPosition);
+    camera.zoom = prevZoom;
+    camera.lookAt(0, 0, 0);
+    camera.updateProjectionMatrix(); // Update the camera projection matrix
+    controls = new OrbitControls(camera, RENDERER.domElement);
   }
-  let gui = new GUI();
+    let gui = new GUI();
   const CHANGE_CAMERA_HELPER = new ChangeCameraHelper();
-  gui.add(CHANGE_CAMERA_HELPER, 'type', 0, 1, 1).name('changeCameraType').onChange(changeCameraType);
-
-
+  gui.add(CHANGE_CAMERA_HELPER, 'useOrthographic').name('Use Orthographic Camera').onChange(changeCameraType);
+  gui.add(CHANGE_CAMERA_HELPER, 'near', 0.1, 10).name('Near').onChange(changeCameraType);
+  gui.add(CHANGE_CAMERA_HELPER, 'far', 5, 200).name('Far').onChange(changeCameraType);
   // Scene
   const SCENE = new THREE.Scene();                                              //Basic SCENE
   // Cube
@@ -75,7 +82,7 @@ function main() {
   SPHERE.position.set(1, 1, -1);                                                // we move the sphere
   SCENE.add(SPHERE);                                                            // and we add it to the SCENE   
   // Floor
-  const FLOOR_GEOMETRY = new THREE.PlaneGeometry(10, 10);                       // Now let's add a floor with dimensions 10x10
+  const FLOOR_GEOMETRY = new THREE.BoxGeometry(10, 10);                       // A box instead of a plane for orbit controls
   const FLOOR_MATERIAL = new THREE.MeshBasicMaterial({                          // Basic material for the floor with the color gray
     color: 'green',
   });
@@ -87,7 +94,8 @@ function main() {
   // Render
   update();                                                                     // Now we call our loop function
 
-  function update() {                                                           // The function will keep rendering the SCENE looking for possible changes
+  function update() {      
+    controls.update();                                                     // The function will keep rendering the SCENE looking for possible changes
     RENDERER.render(SCENE, camera);
     requestAnimationFrame(update);
   }
