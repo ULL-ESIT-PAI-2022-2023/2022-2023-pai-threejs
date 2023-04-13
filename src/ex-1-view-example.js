@@ -14,24 +14,6 @@ import { GUI } from 'https://threejs.org/examples/jsm/libs/lil-gui.module.min.js
 
 'use strict';
 
-// Function to change camera type if the GUI checkbox is checked
-function changeCameraType() {
-  console.log(CHANGE_CAMERA_HELPER.useOrthographic);
-  if (CHANGE_CAMERA_HELPER.useOrthographic) {
-    // First four parameters define the fustrum dimensions (left, right, top, bottom)
-    camera = new THREE.OrthographicCamera(-10, 10, 10, -10, CHANGE_CAMERA_HELPER.near, CHANGE_CAMERA_HELPER.far);
-    camera.position.set(4, 4, 4);
-    camera.zoom = 0.2;
-    camera.lookAt(0, 0, 0);
-  } else {
-    // First parameter is the field of view, second is the aspect ratio, last two are near and far
-    camera = new THREE.PerspectiveCamera(75, 2, CHANGE_CAMERA_HELPER.near, CHANGE_CAMERA_HELPER.far);
-    camera.position.set(4, 4, 4);
-    camera.zoom = 0.2;
-    camera.lookAt(0, 0, 0);
-  }
-}
-
 // This class helps with camera changes with the GUI,
 // it is not necessary to understand it
 class ChangeCameraHelper {
@@ -42,10 +24,29 @@ class ChangeCameraHelper {
   }
 }
 
+// Function to change camera type if the GUI checkbox is checked
+
+
+
 function main() {
+  function changeCameraType() {
+    if (CHANGE_CAMERA_HELPER.useOrthographic) {
+      // First four parameters define the fustrum dimensions (left, right, top, bottom)
+      camera = new THREE.OrthographicCamera(-10, 10, 10, -10, CHANGE_CAMERA_HELPER.near, CHANGE_CAMERA_HELPER.far);
+      camera.position.set(4, 4, 4);
+      camera.zoom = 0.2;
+      camera.lookAt(0, 0, 0);
+    } else {
+      // First parameter is the field of view, second is the aspect ratio, last two are near and far
+      camera = new THREE.PerspectiveCamera(75, 2, CHANGE_CAMERA_HELPER.near, CHANGE_CAMERA_HELPER.far);
+      camera.position.set(4, 4, 4);
+      camera.zoom = 0.2;
+      camera.lookAt(0, 0, 0);
+    }
+  }
   const CANVAS = document.getElementById('canvasBase');
   const RENDERER = new THREE.WebGLRenderer({
-    canvas: canvas,
+    canvas: CANVAS,
     alpha: true // accept transparency
   });
 
@@ -59,11 +60,11 @@ function main() {
 
   // GUI used for changing camera type and near/far values
   // also not necessary to understand, just used for explanation purposes
-  const GUI_LIGHTS = new GUI();
+  const GUI_VIEW = new GUI();
   const CHANGE_CAMERA_HELPER = new ChangeCameraHelper();
-  GUI_LIGHTS.add(CHANGE_CAMERA_HELPER, 'useOrthographic').name('Use Orthographic Camera').onChange(changeCameraType);
-  GUI_LIGHTS.add(CHANGE_CAMERA_HELPER, 'near', 0.1, 10).name('Near').onChange(changeCameraType);
-  GUI_LIGHTS.add(CHANGE_CAMERA_HELPER, 'far', 1, 20).name('Far').onChange(changeCameraType);
+  GUI_VIEW.add(CHANGE_CAMERA_HELPER, 'useOrthographic').name('Use Orthographic Camera').onChange(changeCameraType);
+  GUI_VIEW.add(CHANGE_CAMERA_HELPER, 'near', 0.1, 10).name('Near').onChange(changeCameraType);
+  GUI_VIEW.add(CHANGE_CAMERA_HELPER, 'far', 1, 20).name('Far').onChange(changeCameraType);
 
   // Scene
   const SCENE = new THREE.Scene();
