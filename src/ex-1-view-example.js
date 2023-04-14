@@ -53,6 +53,7 @@ function main() {
   // Camera
   const NEAR = 0.1; // How close the camera can see
   const FAR = 100;  // How far the camera can see
+  // First four parameters define the fustrum dimensions (left, right, top, bottom)
   let camera = new THREE.OrthographicCamera(-10, 10, 10, -10, NEAR, FAR);
   camera.position.set(5, 5, 5);
   camera.zoom = 0.2;

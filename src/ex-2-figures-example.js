@@ -14,12 +14,14 @@ import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/Orb
 'use strict';
 
 function main() {
-  const CANVAS = document.getElementById('canvasBase'); // another way of getting the CANVAS
+  const CANVAS = document.getElementById('canvasBase');
+  // RENDERER
   const RENDERER = new THREE.WebGLRenderer({
     antialias: true,
     canvas: CANVAS,
     alpha: true
-  }); // RENDERER
+  }); 
+  // Camera
   const FOV = 60;
   const ASPECT_RATIO = (CANVAS.width / CANVAS.height);
   const NEAR = 0.1;
@@ -28,6 +30,7 @@ function main() {
   CAMERA.position.z = 35;
   // Camera controls
   const CONTROLS = new OrbitControls(CAMERA, RENDERER.domElement);
+  // Scene
   const SCENE = new THREE.Scene();
   SCENE.background = new THREE.Color(0xAAAAAA);
 
@@ -37,14 +40,6 @@ function main() {
     const INTENSITY = 1;
     const LIGHT = new THREE.DirectionalLight(COLOR, INTENSITY);
     LIGHT.position.set(-1, 2, 4);
-    SCENE.add(LIGHT);
-  }
-  // Light
-  {
-    const COLOR = 0xFFFFFF;
-    const INTENSITY = 1;
-    const LIGHT = new THREE.DirectionalLight(COLOR, INTENSITY);
-    LIGHT.position.set(1, -2, -4);
     SCENE.add(LIGHT);
   }
   const OBJECTS = [];

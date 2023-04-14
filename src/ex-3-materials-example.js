@@ -125,7 +125,6 @@ function main() {
     color: 'orange',
     emissive: 0x004a4a,
     emissiveIntensity: 0,
-    side: THREE.DoubleSide
   });
   const LAMBERT_DIM_SPHERE = new THREE.Mesh(LAMBERT_DIM_SPHERE_GEOMETRY, LAMBERT_DIM_SPHERE_MATERIAL);
   LAMBERT_DIM_SPHERE.position.set(1, 1, 3);
@@ -137,7 +136,6 @@ function main() {
     color: 'orange',
     emissive: 0x004a4a,
     emissiveIntensity: 0.5,
-    side: THREE.DoubleSide
   });
   const LAMBERT_HALF_SPHERE = new THREE.Mesh(LAMBERT_HALF_SPHERE_GEOMETRY, LAMBERT_HALF_SPHERE_MATERIAL);
   LAMBERT_HALF_SPHERE.position.set(2, 1, 2);
@@ -149,7 +147,6 @@ function main() {
     color: 'orange',
     emissive: 0x004a4a,
     emissiveIntensity: 1,
-    side: THREE.DoubleSide
   });
   const LAMBERT_FULL_SPHERE = new THREE.Mesh(LAMBERT_FULL_SPHERE_GEOMETRY, LAMBERT_FULL_SPHERE_MATERIAL);
   LAMBERT_FULL_SPHERE.position.set(3, 1, 1);
