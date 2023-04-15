@@ -24,7 +24,7 @@ function main() {
 
   // We need to tell the renderer that we want it to render shadows
   RENDERER.shadowMap.enabled = true;
-  RENDERER.shadowMap.type = THREE.PCFShadowMap;
+  RENDERER.shadowMap.type = THREE.VSMShadowMap;
   RENDERER.shadowMap.autoUpdate = true;
 
   // GUI

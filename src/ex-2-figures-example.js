@@ -109,7 +109,7 @@ function main() {
     const RADIAL_SEGMENTS = 8;
     const TUBULAR_SEGMENTS = 64;
     const P_VALUE = 2;
-    const Q_VALUE = 3;
+    const Q_VALUE = 4;
     addSolidGeometry(1, -0.5, new THREE.TorusKnotGeometry(RADIUS, TUBE, TUBULAR_SEGMENTS, RADIAL_SEGMENTS, P_VALUE, Q_VALUE));
   }
 

@@ -88,13 +88,14 @@ function main() {
   const AMBIENT_LIGHT = new THREE.AmbientLight(AMBIENT_COLOR, AMBIENT_INTENSITY);
   SCENE.add(AMBIENT_LIGHT);
   // Ambient light gui
-  const alFolder = GUI_LIGHTS.addFolder('ambient light');
-  const alSettings = { color: AMBIENT_LIGHT.color.getHex() };
-  alFolder.add(AMBIENT_LIGHT, 'visible');
-  alFolder.add(AMBIENT_LIGHT, 'intensity', 0, 1, 0.1);
-  alFolder.addColor(alSettings, 'color')
-  alFolder.onChange((value) => AMBIENT_LIGHT.color.set(value));
-  alFolder.open();
+  const AL_FOLDER = GUI_LIGHTS.addFolder('ambient light');
+  const AL_SETTINGS = { color: AMBIENT_LIGHT.color.getHex() };
+  AL_FOLDER.add(AMBIENT_LIGHT, 'visible');
+  AL_FOLDER.add(AMBIENT_LIGHT, 'intensity', 0, 1, 0.1);
+  AL_FOLDER
+    .addColor(AL_SETTINGS, 'color')
+    .onChange((value) => AMBIENT_LIGHT.color.set(value));
+  AL_FOLDER.open();
 
 
   // Directional light functions similar to the sun
@@ -114,8 +115,9 @@ function main() {
     DIRECTIONAL_LIGHT.visible = value;
   });
   DL_FOLDER.add(DIRECTIONAL_LIGHT, 'intensity', 0, 1.5, 0.1);
-  DL_FOLDER.addColor(DL_SETTINGS, 'color');
-  DL_FOLDER.onChange((value) => DIRECTIONAL_LIGHT.color.set(value));
+  DL_FOLDER
+    .addColor(DL_SETTINGS, 'color')
+    .onChange((value) => DIRECTIONAL_LIGHT.color.set(value));
   DL_FOLDER.open();
 
   // Spot light creates a spot that emits light in a cone
@@ -128,6 +130,7 @@ function main() {
   // Spot light gui
   const SL_SETTINGS = {
     visible: true,
+    color: SPOT_LIGHT.color.getHex(),
   };
   const SL_FOLDER = GUI_LIGHTS.addFolder('spot light');
   SL_FOLDER.add(SL_SETTINGS, 'visible').onChange((value) => {
@@ -135,6 +138,9 @@ function main() {
   });
   SL_FOLDER.add(SPOT_LIGHT, 'intensity', 0, 4, 0.25);
   SL_FOLDER.add(SPOT_LIGHT, 'angle', Math.PI / 128, Math.PI / 8, Math.PI / 64);
+  SL_FOLDER
+    .addColor(SL_SETTINGS, 'color')
+    .onChange((value) => SPOT_LIGHT.color.set(value));
   SL_FOLDER.open();
 
   // Point light creates a point that emits light in all directions
@@ -157,8 +163,9 @@ function main() {
   PL_FOLDER.add(POINT_LIGHT.position, 'x', -2, 4, 0.5);
   PL_FOLDER.add(POINT_LIGHT.position, 'y', -2, 4, 0.5);
   PL_FOLDER.add(POINT_LIGHT.position, 'z', -2, 4, 0.5);
-  PL_FOLDER.addColor(PL_SETTINGS, 'color');
-  PL_FOLDER.onChange((value) => POINT_LIGHT.color.set(value));
+  PL_FOLDER
+    .addColor(PL_SETTINGS, 'color')
+    .onChange((value) => POINT_LIGHT.color.set(value));
   PL_FOLDER.open();
 
   // Hemisphere light shines light from the ground and from the sky, takes 2 colors
@@ -172,7 +179,6 @@ function main() {
   const HL_FOLDER = GUI_LIGHTS.addFolder('hemisphere light');
   HL_FOLDER.add(HEMISPHERE_LIGHT, 'visible');
   HL_FOLDER.add(HEMISPHERE_LIGHT, 'intensity', 0, 1.5, 0.1);
-  HL_FOLDER.onChange((value) => HEMISPHERE_LIGHT.color.set(value));
   HL_FOLDER.open();
 
   // Render
