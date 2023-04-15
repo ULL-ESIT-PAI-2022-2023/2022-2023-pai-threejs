@@ -36,7 +36,7 @@ function main() {
   const SCENE = new THREE.Scene();
 
   // Light blue background
-  SCENE.background = new THREE.Color('#DDFEFF');
+  SCENE.background = new THREE.Color('LightCyan');
 
   // Light
   const LIGHT_COLOR = 'white';
@@ -48,7 +48,7 @@ function main() {
   // Floor
   const FLOOR_GEOMETRY = new THREE.PlaneGeometry(10, 10);
   const FLOOR_MATERIAL = new THREE.MeshBasicMaterial({
-    color: '#6D6D6D',
+    color: 'gray',
   });
   const FLOOR = new THREE.Mesh(FLOOR_GEOMETRY, FLOOR_MATERIAL);
   FLOOR.rotation.x = Math.PI * -0.5;
@@ -123,7 +123,7 @@ function main() {
   const LAMBERT_DIM_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
   const LAMBERT_DIM_SPHERE_MATERIAL = new THREE.MeshLambertMaterial({
     color: 'orange',
-    emissive: 0x004a4a,
+    emissive: 'Teal',
     emissiveIntensity: 0,
   });
   const LAMBERT_DIM_SPHERE = new THREE.Mesh(LAMBERT_DIM_SPHERE_GEOMETRY, LAMBERT_DIM_SPHERE_MATERIAL);
@@ -134,7 +134,7 @@ function main() {
   const LAMBERT_HALF_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
   const LAMBERT_HALF_SPHERE_MATERIAL = new THREE.MeshLambertMaterial({
     color: 'orange',
-    emissive: 0x004a4a,
+    emissive: 'Teal',
     emissiveIntensity: 0.5,
   });
   const LAMBERT_HALF_SPHERE = new THREE.Mesh(LAMBERT_HALF_SPHERE_GEOMETRY, LAMBERT_HALF_SPHERE_MATERIAL);
@@ -145,7 +145,7 @@ function main() {
   const LAMBERT_FULL_SPHERE_GEOMETRY = new THREE.SphereGeometry(0.5);
   const LAMBERT_FULL_SPHERE_MATERIAL = new THREE.MeshLambertMaterial({
     color: 'orange',
-    emissive: 0x004a4a,
+    emissive: 'Teal',
     emissiveIntensity: 1,
   });
   const LAMBERT_FULL_SPHERE = new THREE.Mesh(LAMBERT_FULL_SPHERE_GEOMETRY, LAMBERT_FULL_SPHERE_MATERIAL);

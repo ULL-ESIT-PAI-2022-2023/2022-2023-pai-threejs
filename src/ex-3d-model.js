@@ -57,7 +57,7 @@ function main() {
   SCENE.background = BACKGROUND;
 
   // Light
-  const AMBIENT_COLOR = 0xFFFFFF;
+  const AMBIENT_COLOR = 'white';
   const AMBIENT_INTENSITY = 2;
   const AMBIENT_LIGHT = new THREE.AmbientLight(AMBIENT_COLOR, AMBIENT_INTENSITY);
   SCENE.add(AMBIENT_LIGHT);
@@ -66,17 +66,16 @@ function main() {
   function update(time) {
     time *= 0.005; // Time to seconds
     // Make OBJECTS rotate
-    OBJECTS.forEach((obj, ndx) => {
-      const SPEED = .1 + ndx * .1;
+    OBJECTS.forEach((object, index) => {
+      const SPEED = .1 + index * .1;
       const ROTATION = time * SPEED;
-      obj.rotation.x = ROTATION;
-      obj.rotation.y = ROTATION;
+      object.rotation.x = ROTATION;
+      object.rotation.y = ROTATION;
     });
     RENDERER.render(SCENE, CAMERA);
     CONTROLS.update();
     requestAnimationFrame(update);
   }
-
   requestAnimationFrame(update);
 }
 

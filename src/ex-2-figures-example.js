@@ -32,11 +32,11 @@ function main() {
   const CONTROLS = new OrbitControls(CAMERA, RENDERER.domElement);
   // Scene
   const SCENE = new THREE.Scene();
-  SCENE.background = new THREE.Color(0xAAAAAA);
+  SCENE.background = new THREE.Color('LightGray');
 
   // Light
   {
-    const COLOR = 0xFFFFFF;
+    const COLOR = 'white';
     const INTENSITY = 1;
     const LIGHT = new THREE.DirectionalLight(COLOR, INTENSITY);
     LIGHT.position.set(-1, 2, 4);
@@ -113,14 +113,15 @@ function main() {
     addSolidGeometry(1, -0.5, new THREE.TorusKnotGeometry(RADIUS, TUBE, TUBULAR_SEGMENTS, RADIAL_SEGMENTS, P_VALUE, Q_VALUE));
   }
 
+  // Render
   function update(time) {
     time *= 0.001; // Time to seconds
     // Make OBJECTS rotate
-    OBJECTS.forEach((obj, ndx) => {
-      const speed = .1 + ndx * .05;
-      const rot = time * speed;
-      obj.rotation.x = rot;
-      obj.rotation.y = rot;
+    OBJECTS.forEach((object, index) => {
+      const SPEED = .1 + index * .1;
+      const ROTATION = time * SPEED;
+      object.rotation.x = ROTATION;
+      object.rotation.y = ROTATION;
     });
     RENDERER.render(SCENE, CAMERA);
     CONTROLS.update();

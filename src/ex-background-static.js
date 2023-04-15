@@ -68,20 +68,20 @@ function main() {
   SCENE.add(LIGHT);
 
   // Render
-  function render(time) {
+  function update(time) {
     time *= 0.001; // Time to seconds
     // Make OBJECTS rotate
-    OBJECTS.forEach((obj, ndx) => {
-      const SPEED = .1 + ndx * .05;
+    OBJECTS.forEach((object, index) => {
+      const SPEED = .1 + index * .1;
       const ROTATION = time * SPEED;
-      obj.rotation.x = ROTATION;
-      obj.rotation.y = ROTATION;
+      object.rotation.x = ROTATION;
+      object.rotation.y = ROTATION;
     });
-    requestAnimationFrame(render);
-    CONTROLS.update();
     RENDERER.render(SCENE, CAMERA);
+    CONTROLS.update();
+    requestAnimationFrame(update);
   }
-  requestAnimationFrame(render);
+  requestAnimationFrame(update);
 }
 
 // Calls the main function

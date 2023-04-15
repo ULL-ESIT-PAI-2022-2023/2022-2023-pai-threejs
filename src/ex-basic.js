@@ -63,24 +63,24 @@ function main() {
   const AMBIENT_LIGHT = new THREE.AmbientLight(AMBIENT_COLOR, AMBIENT_INTENSITY);
   SCENE.add(AMBIENT_LIGHT);
   // Ambient light gui
-  const alFolder = GUI_LIGHTS.addFolder('ambient light');
-  const alSettings = { color: AMBIENT_LIGHT.color.getHex() };
-  alFolder.add(AMBIENT_LIGHT, 'visible');
-  alFolder.add(AMBIENT_LIGHT, 'intensity', 0, 1, 0.1);
-  alFolder
-      .addColor(alSettings, 'color')
-      .onChange((value) => AMBIENT_LIGHT.color.set(value));
-  alFolder.open();
+  const AL_FOLDER = GUI_LIGHTS.addFolder('ambient light');
+  const AL_SETTINGS = { color: AMBIENT_LIGHT.color.getHex() };
+  AL_FOLDER.add(AMBIENT_LIGHT, 'visible');
+  AL_FOLDER.add(AMBIENT_LIGHT, 'intensity', 0, 1, 0.1);
+  AL_FOLDER
+    .addColor(AL_SETTINGS, 'color')
+    .onChange((value) => AMBIENT_LIGHT.color.set(value));
+  AL_FOLDER.open();
 
   // Render
   function update(time) {
-    time *= 0.005; // Time to seconds
+    time *= 0.001; // Time to seconds
     // Make OBJECTS rotate
-    OBJECTS.forEach((obj, ndx) => {
-      const SPEED = .1 + ndx * .1;
+    OBJECTS.forEach((object, index) => {
+      const SPEED = .1 + index * .1;
       const ROTATION = time * SPEED;
-      obj.rotation.x = ROTATION;
-      obj.rotation.y = ROTATION;
+      object.rotation.x = ROTATION;
+      object.rotation.y = ROTATION;
     });
     RENDERER.render(SCENE, CAMERA);
     CONTROLS.update();

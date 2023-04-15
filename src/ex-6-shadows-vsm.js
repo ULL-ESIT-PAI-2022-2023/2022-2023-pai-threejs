@@ -26,7 +26,7 @@ function main() {
   RENDERER.shadowMap.enabled = true;
   RENDERER.shadowMap.type = THREE.VSMShadowMap;
   RENDERER.shadowMap.autoUpdate = true;
-
+  
   // GUI
   const GUI_LIGHTS = new GUI();
 
@@ -44,7 +44,7 @@ function main() {
 
   // Scene
   const SCENE = new THREE.Scene();
-  SCENE.background = new THREE.Color('#888888');
+  SCENE.background = new THREE.Color('gray');
 
   // Floor
   // We create a box to make the floor, important that we make receiveShadow = true
@@ -63,7 +63,7 @@ function main() {
   const SPHERE_FIRST_GEOMETRY = new THREE.SphereGeometry(0.5);
   const SPHERE_FIRST_MATERIAL = new THREE.MeshPhongMaterial({
     // Light purple
-    color: 0xAC1CF4
+    color: 'Magenta'
   });
   const SPHERE_FIRST = new THREE.Mesh(SPHERE_FIRST_GEOMETRY, SPHERE_FIRST_MATERIAL);
   SPHERE_FIRST.position.set(1, 1, 0);
@@ -74,7 +74,7 @@ function main() {
   const SPHERE_SECOND_GEOMETRY = new THREE.SphereGeometry(0.5);
   const SPHERE_SECOND_MATERIAL = new THREE.MeshPhongMaterial({
     // Light blue colour
-    color: 0x0CE9FF
+    color: 'Cyan'
   });
   const SPHERE_SECOND = new THREE.Mesh(SPHERE_SECOND_GEOMETRY, SPHERE_SECOND_MATERIAL);
   SPHERE_SECOND.position.set(1, 1, 2);
@@ -85,7 +85,7 @@ function main() {
   const SPHERE_THIRD_GEOMETRY = new THREE.SphereGeometry(0.5);
   const SPHERE_THIRD_MATERIAL = new THREE.MeshPhongMaterial({
     // Yellow colour
-    color: 0xFBFF00
+    color: 'Yellow'
   });
   const SPHERE_THIRD = new THREE.Mesh(SPHERE_THIRD_GEOMETRY, SPHERE_THIRD_MATERIAL);
   SPHERE_THIRD.position.set(1, 1, -2);
