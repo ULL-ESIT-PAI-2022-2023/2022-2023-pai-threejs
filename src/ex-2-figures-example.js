@@ -108,8 +108,8 @@ function main() {
     const TUBE = 1.5;
     const RADIAL_SEGMENTS = 8;
     const TUBULAR_SEGMENTS = 64;
-    const P_VALUE = 2;
-    const Q_VALUE = 4;
+    const P_VALUE = 2; // Number of times it wraps around the torus' meridian
+    const Q_VALUE = 4; // Number of times it wraps around the torus' equator
     addSolidGeometry(1, -0.5, new THREE.TorusKnotGeometry(RADIUS, TUBE, TUBULAR_SEGMENTS, RADIAL_SEGMENTS, P_VALUE, Q_VALUE));
   }
 

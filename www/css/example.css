@@ -1,0 +1,13 @@
+canvas {
+    display: block;
+    margin: auto;
+}
+h1 {
+    color: #673FD7;
+    font-family: 'Times New Roman';
+    font-size: 65px;
+    text-align: center;
+    text-shadow: 0 1px 1px #fff;
+    position: relative;
+    margin: 10px;
+}
